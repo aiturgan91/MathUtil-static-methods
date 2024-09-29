@@ -1,0 +1,195 @@
+/**
+ * This class provides various mathematical utility methods for advanced numerical operations.
+ */
+public class MathUtil {
+
+    // Static methods
+
+    /**
+     * Checks whether a given number is prime.
+     * @param n the number to check
+     * @return true if n is prime, otherwise false
+     */
+    public static boolean isPrime(int n) {
+        if (n <= 1) return false; 
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) return false; 
+        }
+        return true; 
+    }
+
+    /**
+     * Calculates the greatest common divisor (GCD) of two integers.
+     * @param a the first integer
+     * @param b the second integer
+     * @return the GCD of a and b
+     */
+    public static int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a; 
+    }
+
+    /**
+     * Computes the least common multiple (LCM) of two numbers.
+     * @param a the first integer
+     * @param b the second integer
+     * @return the LCM of a and b
+     */
+    public static int lcm(int a, int b) {
+        return (a * b) / gcd(a, b); 
+    }
+
+    /**
+     * Returns the nth Fibonacci number.
+     * @param n the position in the Fibonacci sequence
+     * @return the nth Fibonacci number
+     */
+    public static int fibonacci(int n) {
+        if (n < 0) throw new IllegalArgumentException("Fibonacci is not defined for negative numbers.");
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        int a = 0, b = 1;
+        for (int i = 2; i <= n; i++) {
+            int next = a + b;
+            a = b;
+            b = next;
+        }
+        return b; 
+    }
+
+    /**
+     * Calculates the factorial of a number.
+     * @param n the number to calculate the factorial of
+     * @return the factorial of n
+     */
+    public static long factorial(int n) {
+        if (n < 0) throw new IllegalArgumentException("Negative numbers do not have a factorial.");
+        long result = 1;
+        for (int i = 2; i <= n; i++) {
+            result *= i; 
+        }
+        return result; 
+    }
+
+    // Non-static methods
+
+    /**
+     * Determines if the given number is a perfect number.
+     * @param n the number to check
+     * @return true if n is perfect, otherwise false
+     */
+    public boolean isPerfectNumber(int n) {
+        int sum = 0;
+        for (int i = 1; i <= n / 2; i++) {
+            if (n % i == 0) sum += i; 
+        }
+        return sum == n; 
+    }
+
+    /**
+     * Computes the sum of the digits of the given number.
+     * @param n the number to process
+     * @return the sum of the digits of n
+     */
+    public int sumOfDigits(int n) {
+        int sum = 0;
+        while (n > 0) {
+            sum += n % 10; 
+            n /= 10; 
+        }
+        return sum; 
+    }
+
+    /**
+     * Reverses the digits of a number.
+     * @param n the number to reverse
+     * @return the number formed by reversing the digits of n
+     */
+    public int reverseNumber(int n) {
+        int reversed = 0;
+        while (n != 0) {
+            reversed = reversed * 10 + n % 10; 
+            n /= 10; 
+        }
+        return reversed; 
+    }
+
+    /**
+     * Checks if a number is an Armstrong number.
+     * @param n the number to check
+     * @return true if n is an Armstrong number, otherwise false
+     */
+    public boolean isArmstrongNumber(int n) {
+        int sum = 0, original = n;
+        int digits = String.valueOf(n).length(); 
+        while (n != 0) {
+            int digit = n % 10; 
+            sum += Math.pow(digit, digits); 
+            n /= 10; 
+        }
+        return sum == original; 
+    }
+
+    /**
+     * Finds the smallest prime number greater than n.
+     * @param n the number to check after
+     * @return the next prime number after n
+     */
+    public int nextPrime(int n) {
+        int next = n + 1;
+        while (!isPrime(next)) { 
+            next++;
+        }
+        return next; 
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Testing static methods:");
+        System.out.println("isPrime(7): " + MathUtil.isPrime(7)); 
+        System.out.println("isPrime(4): " + MathUtil.isPrime(4)); 
+        System.out.println("isPrime(13): " + MathUtil.isPrime(13)); 
+        
+        System.out.println("gcd(20, 30): " + MathUtil.gcd(20, 30)); 
+        System.out.println("gcd(18, 24): " + MathUtil.gcd(18, 24)); 
+        System.out.println("gcd(101, 10): " + MathUtil.gcd(101, 10)); 
+        
+        System.out.println("lcm(20, 30): " + MathUtil.lcm(20, 30)); 
+        System.out.println("lcm(5, 10): " + MathUtil.lcm(5, 10)); 
+        System.out.println("lcm(12, 15): " + MathUtil.lcm(12, 15)); 
+        
+        System.out.println("fibonacci(6): " + MathUtil.fibonacci(6)); 
+        System.out.println("fibonacci(10): " + MathUtil.fibonacci(10)); 
+        System.out.println("fibonacci(0): " + MathUtil.fibonacci(0)); 
+        
+        System.out.println("factorial(5): " + MathUtil.factorial(5)); 
+        System.out.println("factorial(0): " + MathUtil.factorial(0)); 
+        System.out.println("factorial(7): " + MathUtil.factorial(7)); 
+
+        MathUtil util = new MathUtil();
+        
+        System.out.println("Testing non-static methods:");
+        System.out.println("isPerfectNumber(6): " + util.isPerfectNumber(6)); 
+        System.out.println("isPerfectNumber(28): " + util.isPerfectNumber(28)); 
+        System.out.println("isPerfectNumber(12): " + util.isPerfectNumber(12)); 
+        
+        System.out.println("sumOfDigits(1234): " + util.sumOfDigits(1234)); 
+        System.out.println("sumOfDigits(0): " + util.sumOfDigits(0)); 
+        System.out.println("sumOfDigits(567): " + util.sumOfDigits(567)); 
+        
+        System.out.println("reverseNumber(1234): " + util.reverseNumber(1234)); 
+        System.out.println("reverseNumber(0): " + util.reverseNumber(0)); 
+        System.out.println("reverseNumber(56789): " + util.reverseNumber(56789)); 
+        
+        System.out.println("isArmstrongNumber(153): " + util.isArmstrongNumber(153)); 
+        System.out.println("isArmstrongNumber(370): " + util.isArmstrongNumber(370)); 
+        System.out.println("isArmstrongNumber(123): " + util.isArmstrongNumber(123)); 
+        
+        System.out.println("nextPrime(10): " + util.nextPrime(10)); 
+        System.out.println("nextPrime(20): " + util.nextPrime(20)); 
+        System.out.println("nextPrime(29): " + util.nextPrime(29)); 
+    }
+}
